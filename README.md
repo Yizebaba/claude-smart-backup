@@ -1,265 +1,368 @@
-# Claude Smart Backup
+# AI Chat Backup - Universal Backup System
 
-🎯 智能备份系统 - 为 Claude Code 设计的多条件触发备份解决方案
+🎯 **Universal backup system for AI coding assistants** - Smart triggers, auto-restore, cross-platform
 
-## ✨ 特性
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20macOS%20%7C%20Windows-blue)](https://github.com/Yizebaba/claude-smart-backup)
 
-### 智能触发条件（任意一个满足即备份）
+## ✨ Features
 
-- ⏰ **时间触发** - 每 2 小时
-- 💬 **消息触发** - 新增 200 条消息
-- ✅ **任务触发** - 完成 5 个任务
-- 🔄 **模型切换** - 自动检测并恢复
+### 🤖 Supports 10+ AI Tools
 
-### 🔄 模型切换自动恢复
+- ✅ **Claude Code** (CLI, Desktop, Web)
+- ✅ **Cursor**
+- ✅ **Windsurf**
+- ✅ **Cline** (VS Code extension)
+- ✅ **Continue** (VS Code/JetBrains)
+- ✅ **Aider**
+- ✅ **GitHub Copilot Workspace**
+- ✅ **Cody** (Sourcegraph)
+- ✅ **Tabnine**
+- ✅ **Amazon Q Developer**
 
-当检测到模型切换时，系统会自动：
+### 💻 Cross-Platform
 
-1. **备份旧模型数据**
-   - 聊天记录
-   - 项目会话
-   - 配置文件
-   - Agents、Rules、Skills
+- ✅ **Linux** (Ubuntu, Debian, Fedora, Arch, etc.)
+- ✅ **macOS** (Intel & Apple Silicon)
+- ✅ **Windows** (Native & WSL)
 
-2. **恢复到新模型**
-   - 自动加载聊天记录
-   - 自动恢复项目会话
-   - 自动同步工具配置
-   - 自动恢复 Agents、Rules、Skills
+### 🎯 Smart Triggers (any one triggers backup)
 
-3. **创建通知文件**
-   - 告知新模型已恢复的内容
-   - 说明智能备份系统的功能
+- ⏰ **Time**: Every N hours (default: 2)
+- 💬 **Messages**: New N messages (default: 200)
+- ✅ **Tasks**: Completed N tasks (default: 5)
+- 🔄 **Model Change**: Auto-detect and restore
 
-4. **重置计数器**
-   - 所有计数器归零
-   - 重新开始监控
+### 🔄 Auto-Restore on Model Change
 
-## 🚀 快速开始
+When model change is detected:
+1. Backup old model data
+2. Restore to new model
+3. Load chat history, projects, tools
+4. Create notification file
+5. Reset all counters
 
-### 安装
+## 🚀 Quick Start
+
+### Installation
 
 ```bash
-# 克隆仓库
-git clone https://github.com/YOUR_USERNAME/claude-smart-backup.git
+# Clone repository
+git clone https://github.com/Yizebaba/claude-smart-backup.git
 cd claude-smart-backup
 
-# 一键安装
-./install-smart-backup.sh
-# 选择: 1) 守护进程模式（推荐）
+# Auto-detect your AI tool and install
+./install.sh
 ```
 
-### 使用
+### Usage
 
 ```bash
-# 查看状态
-python3 smart-backup-monitor.py --status
+# Check status
+python3 monitor.py --status
 
-# 手动检查
-python3 smart-backup-monitor.py --check
+# List supported tools
+python3 monitor.py --list-tools
 
-# 重置计数器
-python3 smart-backup-monitor.py --reset
+# Manual check
+python3 monitor.py --check
+
+# Run as daemon
+python3 monitor.py --daemon
 ```
 
-## 📊 工作原理
+## 📊 How It Works
 
-### 监控流程
+### Auto-Detection
 
-```
-启动监控
-  ↓
-每 5 分钟检查一次
-  ↓
-检查 4 个触发条件
-  ↓
-任意一个满足？
-  ├─ 是 → 执行备份 → 重置计数器 → 继续监控
-  └─ 否 → 继续监控
-```
-
-### 模型切换流程
-
-```
-检测到模型切换
-  ↓
-备份旧模型数据
-  ↓
-恢复到新模型
-  ↓
-创建通知文件
-  ↓
-新模型读取通知
-  ↓
-继续之前的对话
-```
-
-## 🎯 使用场景
-
-### 场景 1: 频繁换模型
+The system automatically detects which AI tool you're using:
 
 ```bash
-# 系统自动监控
-# 换模型时自动备份和恢复
-# 无缝切换，无需手动操作
+$ python3 monitor.py --list-tools
+
+📋 Supported AI Tools:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✓ Claude Code                  (model change: ✓)
+✗ Cursor                       (model change: ✓)
+✗ Windsurf                     (model change: ✓)
+...
+
+Detected: Claude Code
 ```
 
-### 场景 2: 长对话保护
+### Monitoring Flow
+
+```
+Start monitoring
+  ↓
+Check every 5 minutes
+  ↓
+Check 4 trigger conditions
+  ↓
+Any condition met?
+  ├─ Yes → Backup → Reset counters → Continue
+  └─ No → Continue
+```
+
+### Model Change Flow
+
+```
+Detect model change
+  ↓
+Backup old model data
+  ↓
+Restore to new model
+  ↓
+Create notification
+  ↓
+New model reads notification
+  ↓
+Continue conversation
+```
+
+## 🔧 Configuration
+
+### Environment Variables
 
 ```bash
-# 新增 200 条消息时自动备份
-# 防止意外丢失对话
+# Specify AI tool (auto-detect if not set)
+export AI_TOOL=cursor
+
+# Trigger thresholds
+export BACKUP_TIME_HOURS=2
+export BACKUP_MESSAGE_THRESHOLD=200
+export BACKUP_TASK_THRESHOLD=5
+
+# Keep N backups
+export KEEP_BACKUPS=2
+
+# Auto-restore on model change
+export AUTO_RESTORE=true
 ```
 
-### 场景 3: 项目开发
+### Config File
+
+Create `~/.ai-backup/config.json`:
+
+```json
+{
+  "ai_tool": "cursor",
+  "time_hours": 2,
+  "message_threshold": 200,
+  "task_threshold": 5,
+  "keep_backups": 2,
+  "auto_restore": true
+}
+```
+
+## 🎯 Use Cases
+
+### Case 1: Frequent Model Switching
 
 ```bash
-# 完成 5 个任务时自动备份
-# 保护开发进度
+# System monitors automatically
+# Switches model → auto backup & restore
+# Seamless transition
 ```
 
-## 🔧 配置
+### Case 2: Long Conversations
 
-### 调整触发阈值
+```bash
+# New 200 messages → auto backup
+# Protect against accidental loss
+```
 
-编辑 `smart-backup-monitor.py`：
+### Case 3: Project Development
+
+```bash
+# Complete 5 tasks → auto backup
+# Protect development progress
+```
+
+## 📝 AI Tool Specific Notes
+
+### Claude Code
+
+- ✅ Full support
+- ✅ Model change detection
+- ✅ Project sessions
+- ✅ Agents, Rules, Skills
+
+### Cursor
+
+- ✅ Full support
+- ✅ Model change detection
+- ✅ Workspace state
+- ⚠️ Requires Cursor 0.30+
+
+### Windsurf
+
+- ✅ Full support
+- ✅ Model change detection
+- ✅ Conversation history
+
+### Cline (VS Code)
+
+- ✅ Task history backup
+- ❌ No model change detection
+- ⚠️ Extension-specific
+
+### Continue
+
+- ✅ Full support
+- ✅ Model change detection
+- ✅ Session history
+
+### Aider
+
+- ✅ Chat history backup
+- ✅ Model change detection
+- ✅ Config file backup
+
+### GitHub Copilot Workspace
+
+- ✅ Workspace history
+- ❌ No model change detection
+
+### Cody (Sourcegraph)
+
+- ✅ Full support
+- ✅ Model change detection
+
+### Tabnine
+
+- ✅ Config backup
+- ❌ No model change detection
+
+### Amazon Q Developer
+
+- ✅ Conversation backup
+- ❌ No model change detection
+
+## 🎓 Advanced Usage
+
+### Daemon Mode (systemd)
+
+```bash
+# Install as systemd service
+./install.sh --daemon
+
+# Manage service
+systemctl --user status ai-backup-monitor
+systemctl --user restart ai-backup-monitor
+journalctl --user -u ai-backup-monitor -f
+```
+
+### Cron Mode
+
+```bash
+# Check every 10 minutes
+./install.sh --cron
+```
+
+### Manual Mode
+
+```bash
+# Full control
+python3 monitor.py --check
+```
+
+## 📊 Performance
+
+- **CPU**: ~0% (checks every 5 minutes)
+- **Memory**: ~10MB (Python process)
+- **Disk**: 5-10MB per backup
+
+## 🔍 Troubleshooting
+
+### Issue 1: Tool Not Detected
+
+```bash
+# List detected tools
+python3 monitor.py --list-tools
+
+# Manually specify
+export AI_TOOL=cursor
+python3 monitor.py --status
+```
+
+### Issue 2: Backup Not Triggered
+
+```bash
+# Check status
+python3 monitor.py --status
+
+# Lower thresholds
+export BACKUP_MESSAGE_THRESHOLD=50
+```
+
+### Issue 3: Model Change Not Detected
+
+```bash
+# Check if tool supports it
+python3 monitor.py --list-tools
+
+# Verify settings file exists
+ls -la ~/.cursor/settings.json  # or your tool's config
+```
+
+## 🤝 Contributing
+
+Contributions welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Add your AI tool support
+4. Submit a pull request
+
+### Adding New AI Tool
+
+Edit `monitor.py` and add to `AIToolConfig.TOOLS`:
 
 ```python
-class BackupConfig:
-    TIME_INTERVAL_HOURS = 2          # 时间间隔（小时）
-    MESSAGE_THRESHOLD = 200          # 消息阈值
-    TASK_THRESHOLD = 5               # 任务阈值
-    KEEP_BACKUPS = 2                 # 保留备份数量
-    AUTO_RESTORE_ON_MODEL_CHANGE = True  # 模型切换自动恢复
+"your-tool": {
+    "name": "Your Tool",
+    "config_dir": {
+        "linux": "~/.config/your-tool",
+        "darwin": "~/Library/Application Support/your-tool",
+        "windows": "%APPDATA%/your-tool",
+    },
+    "history_file": "history.json",
+    "settings_file": "settings.json",
+    "supports_model_change": True,
+}
 ```
 
-### 推荐配置
+## 📄 License
 
-**频繁换模型用户**：
-```python
-TIME_INTERVAL_HOURS = 2
-MESSAGE_THRESHOLD = 200
-TASK_THRESHOLD = 5
-KEEP_BACKUPS = 2
-```
+MIT License - see [LICENSE](LICENSE)
 
-**普通用户**：
-```python
-TIME_INTERVAL_HOURS = 4
-MESSAGE_THRESHOLD = 300
-TASK_THRESHOLD = 10
-KEEP_BACKUPS = 2
-```
+## 🙏 Acknowledgments
 
-## 📝 文件说明
+- Inspired by frequent model switching needs
+- Thanks to all AI tool developers
+- Community feedback and contributions
 
-- `smart-backup-monitor.py` - 智能监控脚本（核心）
-- `claude-backup.sh` - 备份执行脚本
-- `install-smart-backup.sh` - 一键安装脚本
-- `setup-backup-strategy.sh` - 策略配置脚本
+## 📚 Related Projects
 
-## 🎓 高级功能
+- [claude-backup](https://github.com/twilligon/claude-backup)
+- [claude-conversation-extractor](https://github.com/ZeroSumQuant/claude-conversation-extractor)
+- [claude-code-sync](https://github.com/perfectra1n/claude-code-sync)
 
-### 守护进程模式
+## 🎯 Roadmap
 
-```bash
-# 使用 systemd（推荐）
-./install-smart-backup.sh
-# 选择: 1) 守护进程模式
+- [ ] Web UI for management
+- [ ] Remote backup (S3, Google Drive)
+- [ ] Backup encryption
+- [ ] Multi-user support
+- [ ] Backup compression
+- [ ] Custom trigger conditions
+- [ ] Slack/Discord notifications
 
-# 管理命令
-systemctl --user status claude-backup-monitor
-systemctl --user restart claude-backup-monitor
-journalctl --user -u claude-backup-monitor -f
-```
+## 📧 Contact
 
-### Cron 定时模式
-
-```bash
-# 每 10 分钟检查一次
-./install-smart-backup.sh
-# 选择: 2) Cron 定时检查
-```
-
-### 手动模式
-
-```bash
-# 完全手动控制
-python3 smart-backup-monitor.py --check
-```
-
-## 📊 性能影响
-
-- **CPU**: 几乎为 0（每 5 分钟检查一次）
-- **内存**: ~10MB（Python 进程）
-- **磁盘**: 每次备份 ~5-10MB
-
-## 🔍 故障排除
-
-### 问题 1: 守护进程未启动
-
-```bash
-systemctl --user status claude-backup-monitor
-journalctl --user -u claude-backup-monitor -n 50
-```
-
-### 问题 2: 未触发备份
-
-```bash
-python3 smart-backup-monitor.py --status
-# 检查触发条件是否合理
-```
-
-### 问题 3: 模型切换未检测
-
-```bash
-cat ~/.claude/settings.json
-# 确保 model 字段存在
-```
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
-### 开发
-
-```bash
-# 克隆仓库
-git clone https://github.com/YOUR_USERNAME/claude-smart-backup.git
-cd claude-smart-backup
-
-# 测试
-python3 smart-backup-monitor.py --status
-python3 smart-backup-monitor.py --check
-```
-
-## 📄 许可证
-
-MIT License
-
-## 🙏 致谢
-
-- 感谢 [Claude Code](https://claude.ai/code) 提供的强大 AI 编程工具
-- 灵感来源于频繁换模型的实际需求
-
-## 📚 相关项目
-
-- [claude-backup](https://github.com/twilligon/claude-backup) - Claude.ai 聊天备份
-- [claude-conversation-extractor](https://github.com/ZeroSumQuant/claude-conversation-extractor) - 对话提取工具
-- [claude-code-sync](https://github.com/perfectra1n/claude-code-sync) - 跨机器同步
-
-## 🎯 路线图
-
-- [ ] 支持自定义触发条件
-- [ ] 支持远程备份（S3、Google Drive）
-- [ ] 支持备份加密
-- [ ] 支持 Web 管理界面
-- [ ] 支持多用户
-
-## 📧 联系
-
-如有问题或建议，请提交 [Issue](https://github.com/YOUR_USERNAME/claude-smart-backup/issues)
+Issues: [GitHub Issues](https://github.com/Yizebaba/claude-smart-backup/issues)
 
 ---
 
-**⭐ 如果这个项目对你有帮助，请给个 Star！**
+**⭐ Star this repo if it helps you!**

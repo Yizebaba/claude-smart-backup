@@ -39,3 +39,51 @@ All notable changes to this project will be documented in this file.
 - 完整的 README
 - 详细的配置说明
 - 故障排除指南
+
+## [2.0.0] - 2026-05-30
+
+### 🎉 Major Update: Universal AI Tool Support
+
+#### Added
+- **Multi-tool support**: 10+ AI coding assistants
+  - Claude Code
+  - Cursor
+  - Windsurf
+  - Cline (VS Code)
+  - Continue
+  - Aider
+  - GitHub Copilot Workspace
+  - Cody (Sourcegraph)
+  - Tabnine
+  - Amazon Q Developer
+
+- **Cross-platform support**
+  - Linux (all distributions)
+  - macOS (Intel & Apple Silicon)
+  - Windows (Native & WSL)
+
+- **Auto-detection**
+  - Automatically detect which AI tool is being used
+  - Platform-specific path resolution
+  - Graceful fallback
+
+#### Changed
+- Renamed `smart-backup-monitor.py` to `monitor.py`
+- Generalized configuration system
+- Updated README with multi-tool documentation
+
+#### Breaking Changes
+- Configuration file location changed to `~/.ai-backup/`
+- Environment variable `AI_TOOL` for manual tool selection
+
+### Migration Guide
+
+If upgrading from v1.x:
+
+```bash
+# Backup old state
+cp ~/.claude-backups/backup_state.json ~/.ai-backup/state.json
+
+# Update environment
+export AI_TOOL=claude-code
+```
