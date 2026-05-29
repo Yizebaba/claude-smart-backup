@@ -1,0 +1,97 @@
+{
+  "name": "ai-chat-backup",
+  "displayName": "AI Chat Backup",
+  "description": "Universal backup system for AI coding assistants - Smart triggers, auto-restore, cross-platform",
+  "version": "2.0.0",
+  "publisher": "yizebaba",
+  "icon": "icon.png",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "backup",
+    "ai",
+    "claude",
+    "cursor",
+    "windsurf",
+    "chat",
+    "history",
+    "restore"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ai-chat-backup.backup",
+        "title": "AI Chat Backup: Backup Now"
+      },
+      {
+        "command": "ai-chat-backup.restore",
+        "title": "AI Chat Backup: Restore Latest"
+      },
+      {
+        "command": "ai-chat-backup.status",
+        "title": "AI Chat Backup: Show Status"
+      },
+      {
+        "command": "ai-chat-backup.configure",
+        "title": "AI Chat Backup: Configure"
+      }
+    ],
+    "configuration": {
+      "title": "AI Chat Backup",
+      "properties": {
+        "aiChatBackup.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable automatic backup"
+        },
+        "aiChatBackup.timeInterval": {
+          "type": "number",
+          "default": 2,
+          "description": "Backup interval in hours"
+        },
+        "aiChatBackup.messageThreshold": {
+          "type": "number",
+          "default": 200,
+          "description": "Backup after N new messages"
+        },
+        "aiChatBackup.keepBackups": {
+          "type": "number",
+          "default": 2,
+          "description": "Number of backups to keep"
+        },
+        "aiChatBackup.autoRestore": {
+          "type": "boolean",
+          "default": true,
+          "description": "Auto-restore on model change"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "node ./build.js",
+    "watch": "node ./build.js --watch",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^2.19.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Yizebaba/claude-smart-backup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Yizebaba/claude-smart-backup/issues"
+  },
+  "homepage": "https://github.com/Yizebaba/claude-smart-backup#readme",
+  "license": "MIT"
+}

@@ -366,3 +366,26 @@ Issues: [GitHub Issues](https://github.com/Yizebaba/claude-smart-backup/issues)
 ---
 
 **⭐ Star this repo if it helps you!**
+
+---
+
+## 🌐 Multi-Language Support
+
+- [中文文档](docs/MULTILINGUAL.md#中文-chinese)
+- [日本語](docs/MULTILINGUAL.md#日本語-japanese)
+- [한국어](docs/MULTILINGUAL.md#한국어-korean)
+- [Русский](docs/MULTILINGUAL.md#русский-russian)
+- [Español](docs/MULTILINGUAL.md#español-spanish)
+- [Français](docs/MULTILINGUAL.md#français-french)
+- [Deutsch](docs/MULTILINGUAL.md#deutsch-german)
+- [Português](docs/MULTILINGUAL.md#português-portuguese)
+
+## 📦 VS Code Extension
+
+Install directly from VS Code Marketplace or as an extension:
+
+```bash
+code --install-extension yizebaba.ai-chat-backup
+```
+
+See [VS Code Extension Guide](docs/VSCODE_EXTENSION.md) for details.
