@@ -1,5 +1,8 @@
 # AI Chat Backup - Universal Backup System
 
+> 🌐 **Language**: [English](README.md) | [中文](README.zh.md) | [日本語](README.ja.md) | [한국어](README.ko.md) | [Русский](README.ru.md) | [Español](README.es.md) | [Français](README.fr.md) | [Deutsch](README.de.md) | [Português](README.pt.md)
+
+
 🎯 **Universal backup system for AI coding assistants** - Smart triggers, auto-restore, cross-platform
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
